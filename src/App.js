@@ -36,7 +36,7 @@ function App() {
 
   function send() {
     setstatus(true)
-    axios.post("https://mail-app-backend-blond.vercel.app/sendmail", { msg: msg, emailList: emailList })
+    axios.post("https://mail-app-backend-blond.vercel.app", { msg: msg, emailList: emailList })
       .then(function (data) {
         if (data.data === true) {
           alert("E-mail sended successfuly")
