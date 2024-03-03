@@ -1,87 +1,207 @@
+// import axios from "axios";
+// import { useState } from "react";
+// import * as XLSX from "xlsx"
+
+// function App() {
+
+//   const [msg,setmsg] = useState("")
+//   const [status,setstatus] = useState(false)
+//   const [emailList,setEmailList] = useState([])
+
+//   function handlemsg(evt)
+//   {
+//     setmsg(evt.target.value)
+//   }
+
+//   function handlefile(event)
+//   {
+//     const file = event.target.files[0]
+//   console.log(file)
+
+//   const reader = new FileReader();
+//   reader.onload = function (e) {
+//     const data = e.target.result;
+//     const workbook = XLSX.read(data, { type: 'binary' })
+//     const sheetName = workbook.SheetNames[0]
+//     const worksheet = workbook.Sheets[sheetName]
+//     const emailList = XLSX.utils.sheet_to_json(worksheet,{header:'A'})
+//     const totalemail = emailList.map(function(item){return item.A})
+//     console.log(totalemail)
+//     setEmailList(totalemail)
+    
+//   }
+
+//   reader.readAsBinaryString(file);
+//   }
+
+//   function send()
+//   {
+//     setstatus(true)
+//     axios.post("https://bulkmail-backend.vercel.app/sendemail",{msg:msg,emailList:emailList})
+//     .then(function(data)
+//     {
+//       if(data.data === true)
+//       {
+//         alert("Email Sent Successfully")
+//         setstatus(false)
+//       }
+//       else{
+//         alert("Failed")
+//         setstatus(false)
+//       }
+//     })
+//   }
+
+//   return (
+//     <div>
+//       <div className="bg-blue-950 text-white text-center">
+//         <h1 className="text-2xl font-medium px-5 py-3">BulkMail</h1>
+//       </div>
+
+//       <div className="bg-blue-800 text-white text-center">
+//         <h1 className="font-medium px-5 py-3">We can help your business with sending multiple emails at once</h1>
+//       </div>
+
+//       <div className="bg-blue-600 text-white text-center">
+//         <h1 className="font-medium px-5 py-3">Drag and Drop</h1>
+//       </div>
+
+//       <div className="bg-blue-400 flex flex-col items-center text-black px-5 py-3">
+//         <textarea onChange={handlemsg} value={msg} className="w-[80%] h-32 py-2 outline-none px-2 border border-black rounded-md" placeholder="Enter the email text ...."></textarea>
+
+//         <div>
+//           <input type="file" onChange={handlefile}  className="border-4 border-dashed py-4 px-4 mt-5 mb-5" />
+//         </div>
+
+//         <p>Total Emails in the file: {emailList.length}</p>
+
+
+
+//         <button  onClick={send} className="mt-2 bg-blue-950 py-2 px-2 text-white font-medium rounded-md w-fit">{status?"Sending...":"Send"}</button>
+ 
+
+
+
+//       </div>
+
+//       <div className="bg-blue-300 text-white text-center p-8">
+
+//       </div>
+
+//       <div className="bg-blue-200 text-white text-center p-8">
+
+//       </div>
+
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import axios from "axios";
 import { useState } from "react";
-import axios from "axios"
 import * as XLSX from "xlsx"
 
 function App() {
 
-  const [msg, setmsg] = useState("")
-  const [emailList, setemailList] = useState([])
-  const [status, setstatus] = useState(false)
+  const [msg,setmsg] = useState("")
+  const [status,setstatus] = useState(false)
+  const [emailList,setEmailList] = useState([])
 
-  function handlemsg(evt) {
+  function handlemsg(evt)
+  {
     setmsg(evt.target.value)
   }
 
-  function handleFile(event) {
+  function handlefile(event)
+  {
     const file = event.target.files[0]
+  console.log(file)
 
-
-    const reader = new FileReader()
-
-    reader.onload = function (e) {
-
-      const data = e.target.result
-      const workbook = XLSX.read(data, { type: "binary" })
-      const sheetname = workbook.SheetNames[0]
-      const worksheet = workbook.Sheets[sheetname]
-      const emailList = XLSX.utils.sheet_to_json(worksheet, { header: 'A' })
-      const totalemail = emailList.map(function (item) { return item.A })
-      console.log(totalemail)
-      setemailList(totalemail)
-    }
-
-    reader.readAsBinaryString(file);
-
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const data = e.target.result;
+    const workbook = XLSX.read(data, { type: 'binary' })
+    const sheetName = workbook.SheetNames[0]
+    const worksheet = workbook.Sheets[sheetName]
+    const emailList = XLSX.utils.sheet_to_json(worksheet,{header:'A'})
+    const totalemail = emailList.map(function(item){return item.A})
+    console.log(totalemail)
+    setEmailList(totalemail)
+    
   }
 
-  function send() {
+  reader.readAsBinaryString(file);
+  }
+
+  function send()
+  {
     setstatus(true)
-    axios.post("https://mail-app-backend-blond.vercel.app/sendemail", { msg: msg, emailList: emailList })
-      .then(function (data) {
-        if (data.data === true) {
-          alert("E-mail sended successfuly")
-          setstatus(false)
-        }
-        else {
-          alert("E-mail sending was failiure..!")
-          setstatus(false)
-        }
-      })
+    axios.post("https://mail-app-backend-blond.vercel.app/sendemail",{msg:msg,emailList:emailList})
+    .then(function(data)
+    {
+      if(data.data === true)
+      {
+        alert("Email Sent Successfully")
+        setstatus(false)
+      }
+      else{
+        alert("Failed")
+        setstatus(false)
+      }
+    })
   }
 
   return (
     <div>
-      <div className="bg-orange-400 text-white text-center">
-        <h1 className="text-2xl text-red-600 font-medium p-3" style={{ fontFamily: "fantasy" }}><s>B</s>ULK <s style={{ fontFamily: "cursive" }}>M</s>AIL <i class="fa-solid fa-envelopes-bulk"></i></h1>
+      <div className="bg-blue-950 text-white text-center">
+        <h1 className="text-2xl font-medium px-5 py-3">BulkMail</h1>
       </div>
 
-      <div className="bg-orange-300 text-blue text-center">
-        <h1 className=" text-[10px] p-3">We can Help Your bussinuss with sending Multiple E-mails At a Time </h1>
+      <div className="bg-blue-800 text-white text-center">
+        <h1 className="font-medium px-5 py-3">We can help your business with sending multiple emails at once</h1>
       </div>
 
-      <div className="bg-orange-200 text-white text-center">
-        <h1 className=" text-[10px] p-3 text-black">Drag And Drop   <i class="fa-solid fa-envelope-circle-check"></i></h1>
+      <div className="bg-blue-600 text-white text-center">
+        <h1 className="font-medium px-5 py-3">Drag and Drop</h1>
       </div>
 
-      <div className="flex flex-col items-center text-black py-5">
+      <div className="bg-blue-400 flex flex-col items-center text-black px-5 py-3">
+        <textarea onChange={handlemsg} value={msg} className="w-[80%] h-32 py-2 outline-none px-2 border border-black rounded-md" placeholder="Enter the email text ...."></textarea>
+
         <div>
-          <textarea onChange={handlemsg} value={msg} className="w-[70%] h-32 outline-none border border-black rounded" placeholder="Enter the Text"></textarea>
+          <input type="file" onChange={handlefile}  className="border-4 border-dashed py-4 px-4 mt-5 mb-5" />
         </div>
-        <div>
-          <input onChange={handleFile} type="file" className="border border-dashed border-[3px] p-2 mt-2 mb-2  "></input>
 
-        </div>
-        <p>Total E-mails in the selected File : {emailList.length}</p>
-        <button onClick={send} className="bg-yellow-700 w-fit px-1 rounded text-white " style={{ borderTop: "solid grey 3px", borderLeft: "solid grey 6px", fontFamily: "cursive" }} >{status ? "sending" : <i class="fa-solid fa-paper-plane"></i>}</button>
+        <p>Total Emails in the file: {emailList.length}</p>
+
+
+
+        <button  onClick={send} className="mt-2 bg-blue-950 py-2 px-2 text-white font-medium rounded-md w-fit">{status?"Sending...":"Send"}</button>
+ 
+
+
+
       </div>
-      <div className="bg-green-400 h-[50px] text-white text-center">
-        <h1 className="text-2xl font-medium p-3"></h1>
+
+      <div className="bg-blue-300 text-white text-center p-8">
+
       </div>
-      <div className="bg-green-700 h-[40px] text-white text-center">
-        <h1 className="text-2xl font-medium p-3"></h1>
-      </div>
-      <div className="bg-green-950 h-[50px] text-white text-center">
-        <p className="text-[10px]  p-3"></p>
+
+      <div className="bg-blue-200 text-white text-center p-8">
+
       </div>
 
     </div>
