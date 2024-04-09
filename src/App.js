@@ -37,7 +37,7 @@
 //   function send()
 //   {
 //     setstatus(true)
-//     axios.post("https://bulkmail-backend.vercel.app/sendemail",{msg:msg,emailList:emailList})
+//     axios.post("",{msg:msg,emailList:emailList})
 //     .then(function(data)
 //     {
 //       if(data.data === true)
@@ -167,7 +167,7 @@ function App() {
   return (
     <div>
       <div className="bg-blue-950 text-white text-center">
-        <h1 className="text-2xl font-medium px-5 py-3">BulkMail</h1>
+        <h1 className="text-2xl font-medium px-5 py-3"><i class="fa-solid fa-envelope-circle-check"></i>BulkMail</h1>
       </div>
 
       <div className="bg-blue-800 text-white text-center">
